@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAdCampaignRequest;
 use App\Http\Requests\UpdateAdCampaignRequest;
 use App\Models\AdCampaign;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -19,13 +20,13 @@ class AdCampaignController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
+        $adCampaigns = $request->user()->adCampaigns;
 
         return response()->json([
             'status' => true,
             'message' => 'Ad campaign restored successfully.',
             'data' => [
-                'ad_campaign' => $user->adCampaigns,
+                'ad_campaigns' => $adCampaigns,
             ]
         ]);
     }
@@ -43,13 +44,16 @@ class AdCampaignController extends Controller
         $adCampaign = new AdCampaign();
         $adCampaign->user()->associate($request->user());
         $adCampaign->name = $request->name;
-        $adCampaign->date_from = $request->date_from;
-        $adCampaign->date_to = $request->date_to;
+        $adCampaign->date_from = Carbon::parse($request->date_from)->toDateTimeString();
+        $adCampaign->date_to = Carbon::parse($request->date_to)->toDateTimeString();
         $adCampaign->total_budget_in_usd = $request->total_budget_in_usd;
         $adCampaign->daily_budget_in_usd = $request->daily_budget_in_usd;
         $adCampaign->save();
 
-        $adCampaign->addMediaFromRequest('banner_images')->toMediaCollection();
+        $adCampaign->addMultipleMediaFromRequest(['banner_images'])
+            ->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection();
+            });
 
         DB::commit();
 
@@ -59,7 +63,7 @@ class AdCampaignController extends Controller
             'data' => [
                 'ad_campaign' => $adCampaign,
             ]
-        ]);
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -95,13 +99,16 @@ class AdCampaignController extends Controller
         DB::beginTransaction();
 
         $adCampaign->name = $request->name;
-        $adCampaign->date_from = $request->date_from;
-        $adCampaign->date_to = $request->date_to;
+        $adCampaign->date_from = Carbon::parse($request->date_from)->toDateTimeString();
+        $adCampaign->date_to = Carbon::parse($request->date_to)->toDateTimeString();
         $adCampaign->total_budget_in_usd = $request->total_budget_in_usd;
         $adCampaign->daily_budget_in_usd = $request->daily_budget_in_usd;
         $adCampaign->save();
 
-        $adCampaign->addMediaFromRequest('banner_images')->toMediaCollection();
+        $adCampaign->addMultipleMediaFromRequest(['banner_images'])
+            ->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection();
+            });
 
         DB::commit();
 

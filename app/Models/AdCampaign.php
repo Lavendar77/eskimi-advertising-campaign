@@ -15,6 +15,15 @@ class AdCampaign extends Model implements HasMedia
     use InteractsWithMedia;
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'media',
+    ];
+
+    /**
      * Get the owning user of the ad campaign.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

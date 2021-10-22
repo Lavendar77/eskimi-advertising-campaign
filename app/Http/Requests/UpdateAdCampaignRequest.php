@@ -25,8 +25,8 @@ class UpdateAdCampaignRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:191',
-            'date_from' => 'required|date_format:Y-m-d',
-            'date_to' => 'required|date_format:Y-m-d|after:start_date',
+            'date_from' => 'required|date',
+            'date_to' => 'required|date|after:date_from',
             'total_budget_in_usd' => 'required|numeric',
             'daily_budget_in_usd' => 'required|numeric',
             'banner_images' => 'nullable|array',

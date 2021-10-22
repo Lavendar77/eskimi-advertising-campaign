@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AdCampaignController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/ad-campaigns', [AdCampaignController::class, 'index']);
+    Route::post('/ad-campaigns', [AdCampaignController::class, 'store']);
+    Route::get('/ad-campaigns/{adCampaign}', [AdCampaignController::class, 'show']);
+    Route::put('/ad-campaigns/{adCampaign}', [AdCampaignController::class, 'update']);
+    Route::delete('/ad-campaigns/{adCampaign}', [AdCampaignController::class, 'destroy']);
+    Route::post('/ad-campaigns/{adCampaign}/restore', [AdCampaignController::class, 'restore'])->withTrashed();
 });

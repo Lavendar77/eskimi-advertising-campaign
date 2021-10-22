@@ -30,7 +30,7 @@ class AdCampaignPolicy
      */
     public function view(User $user, AdCampaign $adCampaign)
     {
-        //
+        return $user->id === $adCampaign->user_id;
     }
 
     /**
