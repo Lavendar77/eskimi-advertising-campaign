@@ -16,7 +16,7 @@
         "@tailwindcss/forms": "^0.2.1",
         "@vue/compiler-sfc": "^3.0.5",
         "autoprefixer": "^10.2.4",
-        "axios": "^0.21",
+        "axios": "^0.21.4",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.2.13",
@@ -24,5 +24,10 @@
         "tailwindcss": "^2.1.2",
         "vue": "^3.0.5",
         "vue-loader": "^16.1.2"
+    },
+    "dependencies": {
+        "@headlessui/vue": "^1.4.1",
+        "@heroicons/vue": "^1.0.4",
+        "moment": "^2.29.1"
     }
 }

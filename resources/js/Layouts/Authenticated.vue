@@ -18,6 +18,9 @@
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </BreezeNavLink>
+                                <BreezeNavLink :href="route('new-ad-campaign')" :active="route().current('new-ad-campaign')">
+                                    New Ad Campaign
+                                </BreezeNavLink>
                             </div>
                         </div>
 
