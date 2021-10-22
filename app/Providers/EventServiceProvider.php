@@ -27,6 +27,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \App\Models\AdCampaign::observe(\App\Observers\AdCampaignObserver::class);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\AdCampaign;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class AdCampaignController extends Controller
@@ -20,11 +21,15 @@ class AdCampaignController extends Controller
      */
     public function index(Request $request)
     {
-        $adCampaigns = $request->user()->adCampaigns;
+        $user = $request->user();
+
+        $adCampaigns = Cache::rememberForever("ad_campaigns_by_{$user->id}", function () use ($user) {
+            return $user->adCampaigns;
+        });
 
         return response()->json([
             'status' => true,
-            'message' => 'Ad campaign restored successfully.',
+            'message' => 'Ad campaign fetched successfully.',
             'data' => [
                 'ad_campaigns' => $adCampaigns,
             ]
