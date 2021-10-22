@@ -24,6 +24,16 @@ class AdCampaign extends Model implements HasMedia
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'date_from' => 'datetime',
+        'date_to' => 'datetime',
+    ];
+
+    /**
      * Get the owning user of the ad campaign.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
