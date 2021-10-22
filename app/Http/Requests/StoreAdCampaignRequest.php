@@ -25,11 +25,11 @@ class StoreAdCampaignRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:191',
-            'date_from' => 'required|date',
+            'date_from' => 'required|date|after_or_equal:today',
             'date_to' => 'required|date|after:date_from',
             'total_budget_in_usd' => 'required|numeric',
-            'daily_budget_in_usd' => 'required|numeric',
-            'banner_images' => 'nullable|array',
+            'daily_budget_in_usd' => 'required|numeric|lt:total_budget_in_usd',
+            'banner_images' => 'required|array|min:1',
             'banner_images.*' => 'required|image',
         ];
     }
