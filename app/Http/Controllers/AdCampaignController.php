@@ -24,7 +24,7 @@ class AdCampaignController extends Controller
         $user = $request->user();
 
         $adCampaigns = Cache::rememberForever("ad_campaigns_by_{$user->id}", function () use ($user) {
-            return $user->adCampaigns;
+            return $user->adCampaigns()->orderBy('date_from')->get();
         });
 
         return response()->json([
