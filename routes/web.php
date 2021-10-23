@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AdCampaign;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,8 +31,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::get('/ad-campaign', function () {
-        return Inertia::render('AdCampaign');
+        return Inertia::render('AdCampaign', [
+            'status' => session('status'),
+        ]);
     })->name('new-ad-campaign');
+
+    Route::get('/ad-campaign/{adCampaign}', function (AdCampaign $adCampaign) {
+        return Inertia::render('AdCampaign', [
+            'status' => session('status'),
+            'adCampaign' => $adCampaign,
+        ]);
+    });
 });
 
 require __DIR__ . '/auth.php';

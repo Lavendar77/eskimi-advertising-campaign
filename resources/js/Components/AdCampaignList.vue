@@ -9,7 +9,7 @@
                 <Button class="bg-green-600 mr-2">
                     View
                 </Button>
-                <Button class="bg-blue-600 mr-2">
+                <Button class="bg-blue-600 mr-2" @click="editAdCampaign(ad_campaign)">
                     Edit
                 </Button>
                 <Button class="bg-red-600" @click="deleteAdCampaign(ad_campaign)">
@@ -56,6 +56,9 @@ export default {
                 .catch(error => {
                     console.error(error);
                 });
+        },
+        editAdCampaign(ad_campaign) {
+            this.$inertia.get(`/ad-campaign/${ad_campaign.id}`)
         },
         deleteAdCampaign(ad_campaign) {
             axios.delete(`/api/ad-campaigns/${ad_campaign.id}`)
