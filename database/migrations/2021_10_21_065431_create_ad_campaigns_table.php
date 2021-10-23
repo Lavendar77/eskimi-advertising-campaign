@@ -19,8 +19,8 @@ class CreateAdCampaignsTable extends Migration
             $table->string('name');
             $table->timestamp('date_from');
             $table->timestamp('date_to');
-            $table->float('total_budget_in_usd');
-            $table->float('daily_budget_in_usd');
+            $table->decimal('total_budget_in_usd', 10, 2);
+            $table->decimal('daily_budget_in_usd', 10, 2);
             $table->timestamps();
             $table->softDeletes();
         });
