@@ -63,14 +63,16 @@ class AdCampaignController extends Controller
         DB::commit();
 
         return $request->acceptsJson()
-            ? response()->json([
-                'status' => true,
-                'message' => 'Ad campaign stored successfully.',
-                'data' => [
-                    'ad_campaign' => $adCampaign,
-                ]
-            ], Response::HTTP_CREATED)
-            : redirect()->route('dashboard');
+            ? response()
+                ->json([
+                    'status' => true,
+                    'message' => 'Ad campaign stored successfully.',
+                    'data' => [
+                        'ad_campaign' => $adCampaign,
+                    ]
+                ], Response::HTTP_CREATED)
+            : back()->with('status', 'Ad campaign stored successfully.')
+        ;
     }
 
     /**
@@ -119,13 +121,17 @@ class AdCampaignController extends Controller
 
         DB::commit();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Ad campaign updated successfully.',
-            'data' => [
-                'ad_campaign' => $adCampaign,
-            ]
-        ]);
+        return $request->acceptsJson()
+            ? response()
+                ->json([
+                    'status' => true,
+                    'message' => 'Ad campaign updated successfully.',
+                    'data' => [
+                        'ad_campaign' => $adCampaign,
+                    ]
+                ])
+            : back()->with('status', 'Ad campaign updated successfully.')
+        ;
     }
 
     /**
