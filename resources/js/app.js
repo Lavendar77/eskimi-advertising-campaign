@@ -16,7 +16,7 @@ createInertiaApp({
             .mixin({ methods: {
                 route,
                 dateFormat(date, format) {
-                    return moment(date).format(format)
+                    return moment(date).utc().format(format)
                 }
             } })
             .mount(el);
