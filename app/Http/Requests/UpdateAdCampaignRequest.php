@@ -29,7 +29,7 @@ class UpdateAdCampaignRequest extends FormRequest
             'date_to' => 'required|date|after:date_from',
             'total_budget_in_usd' => 'required|numeric',
             'daily_budget_in_usd' => 'required|numeric|lt:total_budget_in_usd',
-            'banner_images' => 'required|array|min:1',
+            'banner_images' => 'nullable|array|min:1',
             'banner_images.*' => 'required|image',
         ];
     }

@@ -114,10 +114,12 @@ class AdCampaignController extends Controller
         $adCampaign->daily_budget_in_usd = $request->daily_budget_in_usd;
         $adCampaign->save();
 
-        $adCampaign->addMultipleMediaFromRequest(['banner_images'])
-            ->each(function ($fileAdder) {
-                $fileAdder->toMediaCollection();
-            });
+        if ($request->banner_images) {
+            $adCampaign->addMultipleMediaFromRequest(['banner_images'])
+                ->each(function ($fileAdder) {
+                    $fileAdder->toMediaCollection();
+                });
+        }
 
         DB::commit();
 
