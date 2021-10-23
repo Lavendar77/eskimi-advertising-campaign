@@ -1,4 +1,5 @@
 # Eskimi Advertising Campaign
+![feature image](./public/sample.png)
 
 ## Development Environment Setup
 ```bash
