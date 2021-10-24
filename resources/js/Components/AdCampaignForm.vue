@@ -88,9 +88,7 @@ export default {
             if (this.adCampaign) {
                 this.form._method = 'PUT';
 
-                this.form.post(`/api/ad-campaigns/${this.adCampaign.id}`, {
-                    onSuccess: () => this.form.reset(),
-                });
+                this.form.post(`/api/ad-campaigns/${this.adCampaign.id}`);
 
                 return;
             }
