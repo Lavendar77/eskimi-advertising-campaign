@@ -1,5 +1,5 @@
 # Eskimi Advertising Campaign
-![feature image](./public/sample.png)
+![feature image](./resources/images/sample.png)
 
 ## Technical Details
 - The application was built using the following:
@@ -49,4 +49,6 @@
 
 ## Tests
 `./vendor/bin/sail artisan test`
+![tests](./resources/images/tests.png)
+
 
