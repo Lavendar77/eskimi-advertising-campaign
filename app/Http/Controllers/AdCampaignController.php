@@ -119,7 +119,12 @@ class AdCampaignController extends Controller
                 ->each(function ($fileAdder) {
                     $fileAdder->toMediaCollection();
                 });
+
+            if (!$adCampaign->wasChanged()) {
+                cache()->forget("ad_campaigns_by_{$adCampaign->user_id}");
+            }
         }
+
 
         DB::commit();
 
