@@ -8,6 +8,7 @@
   - [Laravel Sail](https://laravel.com/docs/8.x/sail) - CLI for Docker development environment.
   - Laravel Breeze with Inertiajs (+ Vue) - for simple authentication scaffolding.
   - Vue.js for frontend.
+  - TailwindCSS.
   - Caching. The default driver is `file`. However, the development setup allows to use `memcached`, which is recommended.
 - Authentication is done only on the UI. Can be extended to APIs though, but that is not a core requirement for this task.
 - APIs are used for managing advertising campaigns.
