@@ -47,4 +47,18 @@ class AdCampaignFactory extends Factory
             'daily_budget_in_usd' => mt_rand(0, 500000),
         ];
     }
+
+    /**
+     * Indicate that the ad campaign is deleted.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function deleted()
+    {
+        return $this->state(function () {
+            return [
+                'deleted_at' => now(),
+            ];
+        });
+    }
 }
