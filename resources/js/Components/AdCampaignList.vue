@@ -6,7 +6,7 @@
             <div class="px-6 py-4">
                 <div class="font-bold text-xl mb-2">{{ ad_campaign.name }}</div>
 
-                <Button class="bg-green-600 mr-2">
+                <Button class="bg-green-600 mr-2" @click="viewAdCampaign(ad_campaign)">
                     View
                 </Button>
                 <Button class="bg-blue-600 mr-2" @click="editAdCampaign(ad_campaign)">
@@ -26,6 +26,8 @@
                 </div>
             </div>
         </div>
+
+        <AdCampaignModal :adCampaign="selectedAdCampaign" />
     </div>
     <div v-else class="text-blue-600 font-bold">
         You do not have any ad campaigns at the moment.
@@ -35,16 +37,19 @@
 <script>
 import axios from 'axios';
 import Button from '@/Components/Button.vue';
+import AdCampaignModal from '@/Components/AdCampaignModal.vue';
 
 export default {
     data() {
         return {
             ad_campaigns: [],
+            selectedAdCampaign: null,
         }
     },
 
     components: {
         Button,
+        AdCampaignModal,
     },
 
     methods: {
@@ -59,6 +64,9 @@ export default {
         },
         editAdCampaign(ad_campaign) {
             this.$inertia.get(`/ad-campaign/${ad_campaign.id}`)
+        },
+        viewAdCampaign(ad_campaign) {
+            this.selectedAdCampaign = ad_campaign;
         },
         deleteAdCampaign(ad_campaign) {
             axios.delete(`/api/ad-campaigns/${ad_campaign.id}`)
