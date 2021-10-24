@@ -33,4 +33,17 @@ class UpdateAdCampaignRequest extends FormRequest
             'banner_images.*' => 'required|image',
         ];
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'date_from' => 'start date of campaign',
+            'date_to' => 'end date of campaign',
+        ];
+    }
 }
