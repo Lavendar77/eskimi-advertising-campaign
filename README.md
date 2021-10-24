@@ -8,12 +8,14 @@
   - [Laravel Sail](https://laravel.com/docs/8.x/sail) - CLI for Docker development environment.
   - Laravel Breeze with Inertiajs (+ Vue) - for simple authentication scaffolding.
   - Vue.js for frontend.
-  - Cache driver defaults to file. However, the development setup allows to use `memcached` which is recommended.
-- Authentication is done only on the UI. Can be extended to APIs though, but that was not a core requirement.
-- APIs are used for the managing the advertising campaigns.
-- While running the application, the following operations are queued to improve speed and performance. To open the queue worker `./vendor/bin/sail artisan queue:listen`:
+  - Caching. The default driver is `file`. However, the development setup allows to use `memcached`, which is recommended.
+- Authentication is done only on the UI. Can be extended to APIs though, but that is not a core requirement for this task.
+- APIs are used for managing advertising campaigns.
+- While running the application, the following operations are queued to improve speed. To open the queue worker `./vendor/bin/sail artisan queue:listen`:
   - Forgot password notification.
-  - Running **AdCampaignSeeder** for the banner images.
+  - Running the **AdCampaignSeeder** for the banner images
+  **If you do not wish to use queues, you can simply change the `QUEUE_CONNECTION=sync` in your `.env` file**
+
 
 ## System Requirements
 - Composer
@@ -26,7 +28,8 @@
 3. Run `composer run-script post-root-package-install`: To run post-install scripts.
 4. Run `composer run-script post-create-project-cmd`: To run post-install scripts (application key, storage link, etc).
 5. Run `./vendor/bin/sail build --no-cache`: To build the docker images.
-6. Start the application **docker** service, run `./vendor/bin/sail up -d`. *The `-d` flag is to run the service in the background.*
+6. Start the application **docker** service with `./vendor/bin/sail up -d`.<br>
+   *The `-d` flag is to run the service in the background.*<br>
    If you run into this error:
    > Cannot start service laravel.test: Ports are not available: listen tcp 0.0.0.0:*: bind: address already in use
 
@@ -40,9 +43,9 @@
 
    **If you do change your APP_PORT, ensure you modify your APP_URL to reflect it as well. Else, images may not display.**
 7. Run the migrations with `./vendor/bin/sail artisan migrate`
-8. Note: Since we are using Docker to setup, you can modify `CACHE_DRIVER=memcached` in your `.env` file.**
-9. Open your browser and visit: http://127.0.0.1:_APP_PORT_
+8. **Note:** Since we are using Docker to setup, you can modify `CACHE_DRIVER=memcached` in your `.env` file.**
+9.  Open your browser and visit: http://127.0.0.1:APP_PORT
 
 ## Tests
-`sail artisan test`
+`./vendor/bin/sail artisan test`
 
