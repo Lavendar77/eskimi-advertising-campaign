@@ -23,6 +23,9 @@
 											<div class="grid-cols-3 space-y-2 lg:space-y-0 lg:grid lg:gap-3 lg:grid-rows-3">
 												<div class="w-full rounded" v-for="media in adCampaign.media" :key="media.id">
 													<img :src="media.full_url" alt="image">
+													<Button class="bg-red-600" @click="deleteMedia(media)">
+														Delete
+													</Button>
 												</div>
 											</div>
 										</div>
@@ -45,6 +48,7 @@
 <script>
 import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ExclamationIcon } from '@heroicons/vue/outline'
+import Button from '@/Components/Button.vue';
 
 export default {
 	components: {
@@ -54,6 +58,7 @@ export default {
 		TransitionChild,
 		TransitionRoot,
 		ExclamationIcon,
+		Button,
 	},
 
 	props: {
@@ -72,6 +77,18 @@ export default {
 				this.open = true
 			}
 		}
+	},
+
+	methods: {
+		deleteMedia(media) {
+            axios.delete(`/api/ad-campaigns/${this.adCampaign.id}/media/${media.id}`)
+                .then(() => {
+                    this.$emit('refresh')
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
 	}
 }
 </script>

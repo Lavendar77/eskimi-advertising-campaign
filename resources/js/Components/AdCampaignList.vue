@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <AdCampaignModal :adCampaign="selectedAdCampaign" />
+        <AdCampaignModal :adCampaign="selectedAdCampaign" @refresh="refreshAdCampaigns" />
     </div>
     <div v-else class="text-blue-600 font-bold">
         You do not have any ad campaigns at the moment.
@@ -50,6 +50,14 @@ export default {
     components: {
         Button,
         AdCampaignModal,
+    },
+
+    watch: {
+        ad_campaigns(val) {
+            if (this.selectedAdCampaign) {
+                this.selectedAdCampaign = this.ad_campaigns.filter(ad_campaign => ad_campaign.id == this.selectedAdCampaign.id)[0]
+            }
+        }
     },
 
     methods: {
@@ -76,6 +84,9 @@ export default {
                 .catch(error => {
                     console.error(error);
                 });
+        },
+        refreshAdCampaigns() {
+            this.fetchCampaigns();
         }
     },
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdCampaignController;
+use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/ad-campaigns/{adCampaign}', [AdCampaignController::class, 'show']);
     Route::put('/ad-campaigns/{adCampaign}', [AdCampaignController::class, 'update']);
     Route::delete('/ad-campaigns/{adCampaign}', [AdCampaignController::class, 'destroy']);
-    Route::post('/ad-campaigns/{adCampaign}/restore', [AdCampaignController::class, 'restore'])->withTrashed();
+    // Route::post('/ad-campaigns/{adCampaign}/restore', [AdCampaignController::class, 'restore'])->withTrashed();
+
+    Route::delete('/ad-campaigns/{adCampaign}/media/{media}', [MediaController::class, 'destroy']);
 });
