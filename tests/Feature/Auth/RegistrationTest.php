@@ -24,9 +24,33 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
+        ], [
+            'Accept' => 'application/x-www-form-urlencoded',
         ]);
 
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
+    }
+
+    public function test_new_users_can_register_via_api()
+    {
+        $response = $this->post('/api/register', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ], [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertOk();
+
+        $response->assertJsonStructure([
+            'status',
+            'message',
+            'data' => [
+                'token'
+            ]
+        ]);
     }
 }
