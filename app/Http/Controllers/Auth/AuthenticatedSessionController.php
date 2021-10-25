@@ -33,6 +33,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        if ($request->acceptsJson()) {
+            $token = $request->authenticateViaApi();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Authentication was successful.',
+                'data' => [
+                    'token' => $token,
+                ]
+            ]);
+        }
+
         $request->authenticate();
 
         $request->session()->regenerate();

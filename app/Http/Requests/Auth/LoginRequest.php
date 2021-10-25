@@ -57,6 +57,32 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * Attempt to authenticate the request's credentials via API.
+     *
+     * @return string
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function authenticateViaApi()
+    {
+        $this->ensureIsNotRateLimited();
+
+        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        RateLimiter::clear($this->throttleKey());
+
+        $user = \App\Models\User::where('email', $this->email)->first();
+
+        return $user->createToken($this->ip())->plainTextToken;
+    }
+
+    /**
      * Ensure the login request is not rate limited.
      *
      * @return void

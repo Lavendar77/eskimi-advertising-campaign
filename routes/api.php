@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdCampaignController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/ad-campaigns', [AdCampaignController::class, 'index']);
     Route::post('/ad-campaigns', [AdCampaignController::class, 'store']);
