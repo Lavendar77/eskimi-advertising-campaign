@@ -48,6 +48,18 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        if ($request->acceptsJson()) {
+            $token = $user->createToken($request->ip())->plainTextToken;
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Registration was successful.',
+                'data' => [
+                    'token' => $token,
+                ]
+            ]);
+        }
+
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
