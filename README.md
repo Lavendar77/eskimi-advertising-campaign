@@ -6,11 +6,11 @@
   - PHP 8
   - Laravel 8.*
   - [Laravel Sail](https://laravel.com/docs/8.x/sail) - CLI for Docker development environment.
-  - Laravel Breeze with Inertiajs (+ Vue) - for simple authentication scaffolding.
+  - [Laravel Sanctum](https://laravel.com/docs/8.x/sanctum) - Authentication (SPA + API).
+  - [Laravel Breeze with Inertiajs](https://laravel.com/docs/8.x/starter-kits#breeze-and-inertia) - for simple authentication UI scaffolding.
   - Vue.js for frontend.
   - TailwindCSS.
   - Caching. The default driver is `file`. However, the development setup allows to use `memcached`, which is recommended.
-- Authentication is done only on the UI. Can be extended to APIs though, but that is not a core requirement for this task.
 - APIs are used for managing advertising campaigns.
 - While running the application, the following operations are queued to improve speed. To open the queue worker `./vendor/bin/sail artisan queue:listen`:
   - Forgot password notification.
@@ -48,7 +48,8 @@
 9.  Open your browser and visit: http://127.0.0.1:APP_PORT
 
 ## Tests
-`./vendor/bin/sail artisan test`
+Run `./vendor/bin/sail artisan test`
+
 ![tests](./resources/images/tests.png)
 
 
