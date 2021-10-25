@@ -38,7 +38,7 @@ class AdCampaignApiTest extends TestCase
         $user = User::factory()->create();
 
         // copy sample file first
-        copy(public_path('sample.png'), resource_path('/test-files/sample.png'));
+        copy(resource_path('/images/sample.png'), resource_path('/test-files/sample.png'));
 
         $response = $this->actingAs($user)->post(
             '/api/ad-campaigns',
@@ -99,7 +99,7 @@ class AdCampaignApiTest extends TestCase
         $adCampaign = AdCampaign::factory()->count(1)->for($user)->create()->first();
 
         // copy sample file first
-        copy(public_path('sample.png'), resource_path('/test-files/sample.png'));
+        copy(resource_path('/images/sample.png'), resource_path('/test-files/sample.png'));
 
         $response = $this->actingAs($user)->post(
             "/api/ad-campaigns/{$adCampaign->id}",
