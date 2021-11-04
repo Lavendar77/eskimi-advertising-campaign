@@ -83,7 +83,7 @@ class AdCampaignController extends Controller
      */
     public function show(AdCampaign $adCampaign)
     {
-        $this->authorize('view', $adCampaign);
+        // $this->authorize('view', $adCampaign);
 
         return response()->json([
             'status' => true,
@@ -103,7 +103,7 @@ class AdCampaignController extends Controller
      */
     public function update(UpdateAdCampaignRequest $request, AdCampaign $adCampaign)
     {
-        $this->authorize('update', $adCampaign);
+        // $this->authorize('update', $adCampaign);
 
         DB::beginTransaction();
 
@@ -149,7 +149,7 @@ class AdCampaignController extends Controller
      */
     public function destroy(AdCampaign $adCampaign)
     {
-        $this->authorize('delete', $adCampaign);
+        // $this->authorize('delete', $adCampaign);
 
         $adCampaign->delete();
 
@@ -164,7 +164,7 @@ class AdCampaignController extends Controller
      */
     public function restore(AdCampaign $adCampaign)
     {
-        $this->authorize('restore', $adCampaign);
+        // $this->authorize('restore', $adCampaign);
 
         $adCampaign->restore();
 

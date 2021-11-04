@@ -77,11 +77,6 @@ class AdCampaignApiTest extends TestCase
         $user = User::factory()->create();
         $adCampaign = AdCampaign::factory()->count(1)->for($user)->create()->first();
 
-        var_dump([
-            'user_id' => $user->id,
-            'ad_campaign_id' => $adCampaign->user_id,
-        ]);
-
         $response = $this->actingAs($user)
             ->get("/api/ad-campaigns/{$adCampaign->id}", [
                 'Accept' => 'application/json',
@@ -142,10 +137,10 @@ class AdCampaignApiTest extends TestCase
     public function test_ad_campaign_can_be_deleted_via_api()
     {
         $user = User::factory()->create();
-        $adCampaign = AdCampaign::factory()->count(1)->for($user)->create()->first()->id;
+        $adCampaign = AdCampaign::factory()->count(1)->for($user)->create()->first();
 
         $response = $this->actingAs($user)->delete(
-            "/api/ad-campaigns/{$adCampaign}",
+            "/api/ad-campaigns/{$adCampaign->id}",
             [
                 'Accept' => 'application/json',
             ]
@@ -157,10 +152,10 @@ class AdCampaignApiTest extends TestCase
     public function test_ad_campaign_can_be_restored_via_api()
     {
         $user = User::factory()->create();
-        $adCampaign = AdCampaign::factory()->count(1)->for($user)->deleted()->create()->first()->id;
+        $adCampaign = AdCampaign::factory()->count(1)->for($user)->deleted()->create()->first();
 
         $response = $this->actingAs($user)->post(
-            "/api/ad-campaigns/{$adCampaign}/restore",
+            "/api/ad-campaigns/{$adCampaign->id}/restore",
             [
                 'Accept' => 'application/json',
             ]
