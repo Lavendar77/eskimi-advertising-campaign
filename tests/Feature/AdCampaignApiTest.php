@@ -77,6 +77,8 @@ class AdCampaignApiTest extends TestCase
         $user = User::factory()->create();
         $adCampaign = AdCampaign::factory()->count(1)->for($user)->create()->first()->id;
 
+        dd($adCampaign);
+
         $response = $this->actingAs($user)
             ->get("/api/ad-campaigns/{$adCampaign}", [
                 'Accept' => 'application/json',
