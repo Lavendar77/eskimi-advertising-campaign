@@ -75,7 +75,7 @@ class AdCampaignApiTest extends TestCase
     public function test_ad_campaign_can_be_fetched_via_api()
     {
         $user = User::factory()->create();
-        $adCampaign = AdCampaign::factory()->count(1)->for($user)->create()->first()->id;
+        $adCampaign = AdCampaign::factory()->count(1)->for($user)->create()->first();
 
         dd($adCampaign);
 
